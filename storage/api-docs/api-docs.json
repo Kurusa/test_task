@@ -1,0 +1,538 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API List",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/locations": {
+            "get": {
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Display location list with free blocks count",
+                "operationId": "ff6a2d27aae4b5481b3a0110d1051e6d",
+                "responses": {
+                    "200": {
+                        "description": "Display location list with free blocks count",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/LocationResource"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "psidAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/location/{location}/blocks": {
+            "get": {
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Display location blocks count calculated based on passeed parameters",
+                "operationId": "145c6d8bb771b65be6c3df58bd47091b",
+                "parameters": [
+                    {
+                        "name": "location",
+                        "in": "path",
+                        "description": "Location id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1000
+                    },
+                    {
+                        "name": "product_volume",
+                        "in": "query",
+                        "description": "Product volume",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 45
+                    },
+                    {
+                        "name": "temperature",
+                        "in": "query",
+                        "description": "Temperature",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 45
+                    },
+                    {
+                        "name": "storage_period",
+                        "in": "query",
+                        "description": "Storage period",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 21
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Display location blocks count calculated based on passeed parameters",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "count": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "psidAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/user/{user}/room/{room}/book-block": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Book the specified number of blocks for user",
+                "operationId": "6a2b663c79c125c5fe2881a7102ee657",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1741
+                    },
+                    {
+                        "name": "room",
+                        "in": "path",
+                        "description": "Room id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "blocks_count": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "start_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2021-09-01"
+                                    },
+                                    "end_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2021-09-10"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Display created booking",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/RoomBlockBookingResource"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "psidAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/user/{user}/bookings": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Display user booking list",
+                "operationId": "4323541c5633ad0420063814611b8cbd",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1741
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Display user booking list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BookingResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "psidAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BookingResource": {
+                "properties": {
+                    "id": {
+                        "description": "Class BookingResource",
+                        "type": "integer",
+                        "readOnly": true,
+                        "example": 1000
+                    },
+                    "room": {
+                        "$ref": "#/components/schemas/LocationRoomResource"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "BookingResource"
+                }
+            },
+            "LocationResource": {
+                "properties": {
+                    "id": {
+                        "description": "Class LocationResource",
+                        "type": "integer",
+                        "readOnly": true,
+                        "example": 1000
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Stripe"
+                    },
+                    "free_blocks": {
+                        "type": "integer",
+                        "example": 804
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "LocationResource"
+                }
+            },
+            "LocationRoomResource": {
+                "properties": {
+                    "id": {
+                        "description": "Class LocationRoomResource",
+                        "type": "integer",
+                        "readOnly": true,
+                        "example": 1000
+                    },
+                    "location": {
+                        "$ref": "#/components/schemas/LocationResource"
+                    },
+                    "temperature": {
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "blocks_count": {
+                        "type": "integer",
+                        "example": 5
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "LocationRoomResource"
+                }
+            },
+            "RoomBlockBookingResource": {
+                "properties": {
+                    "id": {
+                        "description": "Class RoomBlockBookingResource",
+                        "type": "integer",
+                        "readOnly": true,
+                        "example": 1000
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/UserResource"
+                    },
+                    "room": {
+                        "$ref": "#/components/schemas/LocationRoomResource"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "start_date": {
+                        "type": "date-time",
+                        "example": "2020-07-25 13:20:00"
+                    },
+                    "end_date": {
+                        "type": "date-time",
+                        "example": "2020-07-25 13:20:00"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "RoomBlockBookingResource"
+                }
+            },
+            "UserResource": {
+                "properties": {
+                    "id": {
+                        "description": "Class UserResource",
+                        "type": "integer",
+                        "readOnly": true,
+                        "example": 1000
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "johndoe@johndoecompany.com"
+                    },
+                    "bookings": {
+                        "$ref": "#/components/schemas/BookingResource"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "UserResource"
+                }
+            },
+            "Location": {
+                "properties": {
+                    "id": {
+                        "description": "Class Location",
+                        "type": "integer",
+                        "readOnly": true,
+                        "example": 39
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Stripe"
+                    },
+                    "created_at": {
+                        "type": "date-time",
+                        "readOnly": true,
+                        "example": "2020-07-09 12:51:39"
+                    },
+                    "updated_at": {
+                        "type": "date-time",
+                        "readOnly": true,
+                        "example": "2020-07-15 10:32:01"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Location"
+                }
+            },
+            "LocationRoom": {
+                "properties": {
+                    "id": {
+                        "description": "Class LocationRoom",
+                        "type": "integer",
+                        "readOnly": true,
+                        "example": 41
+                    },
+                    "location_id": {
+                        "type": "integer",
+                        "example": 39
+                    },
+                    "temperature": {
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "blocks_count": {
+                        "type": "integer",
+                        "example": 5
+                    },
+                    "updated_at": {
+                        "type": "date-time",
+                        "readOnly": true,
+                        "example": "2020-07-15 10:32:01"
+                    },
+                    "created_at": {
+                        "type": "date-time",
+                        "readOnly": true,
+                        "example": "2020-07-09 12:51:39"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "LocationRoom"
+                }
+            },
+            "RoomBlockBooking": {
+                "properties": {
+                    "id": {
+                        "description": "Class RoomBlockBooking",
+                        "type": "integer",
+                        "readOnly": true,
+                        "example": 41
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "example": 41
+                    },
+                    "room_id": {
+                        "type": "integer",
+                        "example": 39
+                    },
+                    "count": {
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "start_date": {
+                        "type": "date-time",
+                        "example": "2020-07-09 12:51:39"
+                    },
+                    "end_date": {
+                        "type": "date-time",
+                        "example": "2020-07-09 12:51:39"
+                    },
+                    "created_at": {
+                        "type": "date-time",
+                        "readOnly": true,
+                        "example": "2020-07-09 12:51:39"
+                    },
+                    "updated_at": {
+                        "type": "date-time",
+                        "readOnly": true,
+                        "example": "2020-07-15 10:32:01"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "RoomBlockBooking"
+                }
+            },
+            "User": {
+                "properties": {
+                    "id": {
+                        "description": "Class User",
+                        "type": "integer",
+                        "readOnly": true,
+                        "example": 804
+                    },
+                    "ge_psid": {
+                        "type": "string",
+                        "readOnly": true,
+                        "example": "5f3a98967f676"
+                    },
+                    "email": {
+                        "type": "string",
+                        "maxLength": 100,
+                        "example": "johndoe@johndoecompany.com"
+                    },
+                    "password": {
+                        "type": "hidden",
+                        "maxLength": 100,
+                        "writeOnly": "true",
+                        "example": "secret"
+                    },
+                    "created_at": {
+                        "type": "date-time",
+                        "readOnly": true,
+                        "example": "2020-07-09 12:51:39"
+                    },
+                    "updated_at": {
+                        "type": "date-time",
+                        "readOnly": true,
+                        "example": "2020-07-15 10:32:01"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "User"
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            },
+            "psidAuth": {
+                "type": "apiKey",
+                "description": "Use your user psid to connect",
+                "name": "psid",
+                "in": "query"
+            }
+        }
+    }
+}
